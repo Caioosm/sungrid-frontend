@@ -3,7 +3,8 @@ const apiBaseUrl = import.meta.env.VITE_API_BASE_URL?.replace(/\/+$/, '')
 export async function apiRequest(path, { body, ...options } = {}) {
   if (!apiBaseUrl) {
     throw new Error(
-      'A API ainda não foi configurada. Defina VITE_API_BASE_URL no arquivo .env.',
+      'Erro' + Error
+      // 'A API ainda não foi configurada. Defina VITE_API_BASE_URL no arquivo .env.',
     )
   }
 
