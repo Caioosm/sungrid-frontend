@@ -1,21 +1,33 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
 import AuthLayout from '../components/AuthLayout.jsx'
 import FormField from '../components/FormField.jsx'
+import Alert from '../components/ui/alert.jsx'
+import { FieldGroup } from '../components/ui/field-group.jsx'
+import { getFormErrors } from '../lib/formValidation.js'
 import { authService } from '../services/authService.js'
 
 function ForgotPasswordPage() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [error, setError] = useState('')
   const [message, setMessage] = useState('')
+  const [fieldErrors, setFieldErrors] = useState({})
 
   async function handleSubmit(event) {
     event.preventDefault()
     setError('')
     setMessage('')
+
+    const form = event.currentTarget
+    const nextFieldErrors = getFormErrors(form)
+    if (Object.keys(nextFieldErrors).length > 0) {
+      setFieldErrors(nextFieldErrors)
+      return
+    }
+
+    setFieldErrors({})
     setIsSubmitting(true)
 
-    const formData = new FormData(event.currentTarget)
+    const formData = new FormData(form)
 
     try {
       await authService.requestPasswordReset(formData.get('email'))
@@ -38,26 +50,22 @@ function ForgotPasswordPage() {
       title="SunGrid"
       subtitle="Gestão inteligente de energia solar"
       className="recovery-card"
-      footer={<Link to="/login">Voltar para entrar</Link>}
+      backLink="/login"
     >
-      <form className="auth-form" onSubmit={handleSubmit}>
-        <FormField
-          id="email"
-          label="Digite seu endereço de e-mail"
-          type="email"
-          placeholder="seu@email.com"
-          autoComplete="email"
-        />
-        {error && (
-          <p className="form-feedback form-feedback--error" role="alert">
-            {error}
-          </p>
-        )}
-        {message && (
-          <p className="form-feedback form-feedback--success" role="status">
-            {message}
-          </p>
-        )}
+      <form className="auth-form" onSubmit={handleSubmit} noValidate>
+        <FieldGroup>
+          <FormField
+            id="email"
+            label="Digite seu endereço de e-mail"
+            type="email"
+            placeholder="seu@email.com"
+            autoComplete="email"
+            error={fieldErrors.email}
+            onChange={() => setFieldErrors((current) => ({ ...current, email: '' }))}
+          />
+        </FieldGroup>
+        {error && <Alert variant="destructive">{error}</Alert>}
+        {message && <Alert>{message}</Alert>}
         <button className="submit-button" type="submit" disabled={isSubmitting}>
           {isSubmitting ? 'Enviando...' : 'Enviar'}
         </button>

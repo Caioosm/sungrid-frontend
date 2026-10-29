@@ -1,9 +1,39 @@
 import '../styles/auth.css'
+import { Link } from 'react-router-dom'
 
-function AuthLayout({ title, subtitle, children, footer, className = '' }) {
+function ArrowLeftIcon() {
+  return (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M19 12H5" />
+      <path d="m12 19-7-7 7-7" />
+    </svg>
+  )
+}
+
+function AuthLayout({
+  title,
+  subtitle,
+  children,
+  footer,
+  className = '',
+  backLink,
+}) {
   return (
     <main className="auth-page">
       <section className={`auth-card ${className}`.trim()}>
+        {backLink && (
+          <Link className="auth-back" to={backLink} aria-label="Voltar para login">
+            <ArrowLeftIcon />
+          </Link>
+        )}
         <header className="auth-header">
           <img
             className="auth-logo"

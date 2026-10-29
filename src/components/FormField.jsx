@@ -1,4 +1,9 @@
 import { useState } from 'react'
+import {
+  Field,
+  FieldError,
+  FieldLabel,
+} from './ui/field-group.jsx'
 
 function EyeIcon({ visible }) {
   return (
@@ -36,18 +41,28 @@ function FormField({
   autoComplete,
   required = true,
   minLength,
+  error,
+  onChange,
 }) {
   const [passwordVisible, setPasswordVisible] = useState(false)
   const isPassword = type === 'password'
 
   return (
-    <div className="form-field">
-      <label htmlFor={id}>
+    <Field className="form-field">
+      <FieldLabel htmlFor={id}>
         {label}
-        {required && <span className="required-mark"> *</span>}
-      </label>
-      <div className="input-wrap">
+        {required && (
+          <>
+            <span className="required-mark" aria-hidden="true">
+              *
+            </span>
+            <span className="sr-only"> obrigatório</span>
+          </>
+        )}
+      </FieldLabel>
+      <div className={`input-wrap${isPassword ? ' input-wrap--password' : ''}`}>
         <input
+          className="input-control"
           id={id}
           name={id}
           type={isPassword && passwordVisible ? 'text' : type}
@@ -55,6 +70,9 @@ function FormField({
           autoComplete={autoComplete}
           required={required}
           minLength={minLength}
+          aria-invalid={Boolean(error)}
+          aria-describedby={error ? `${id}-error` : undefined}
+          onChange={onChange}
         />
         {isPassword && (
           <button
@@ -68,7 +86,8 @@ function FormField({
           </button>
         )}
       </div>
-    </div>
+      <FieldError id={`${id}-error`}>{error}</FieldError>
+    </Field>
   )
 }
 
