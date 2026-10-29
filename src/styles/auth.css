@@ -1,0 +1,262 @@
+.auth-page {
+  display: grid;
+  min-height: 100vh;
+  place-items: center;
+  padding: 32px 20px;
+  background:
+    radial-gradient(ellipse at 20% 50%, rgb(255 255 255 / 90%) 0, transparent 48%),
+    linear-gradient(110deg, #fff8eb 0%, #ffdda0 44%, #ffb34e 100%);
+}
+
+.auth-card {
+  width: min(100%, 382px);
+  padding: 42px 40px 38px;
+  border: 1px solid rgb(223 228 235 / 75%);
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 16px 38px rgb(102 65 7 / 10%);
+}
+
+.auth-header {
+  margin-bottom: 27px;
+  text-align: center;
+}
+
+.auth-logo {
+  display: block;
+  width: 42px;
+  height: 42px;
+  margin: 0 auto 12px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.auth-header h1 {
+  margin: 0;
+  color: var(--color-text);
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.auth-header p {
+  margin: 8px 0 0;
+  color: var(--color-muted);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 17px;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.form-field label {
+  color: #53627a;
+  font-size: 12px;
+  font-weight: 650;
+  line-height: 1.4;
+}
+
+.required-mark {
+  color: #e23b3b;
+}
+
+.input-wrap {
+  position: relative;
+}
+
+.input-wrap input {
+  display: block;
+  width: 100%;
+  height: 40px;
+  padding: 0 12px;
+  border: 1px solid var(--color-border);
+  border-radius: 7px;
+  outline: none;
+  background: #fff;
+  color: var(--color-text);
+  font-size: 13px;
+  transition:
+    border-color 150ms ease,
+    box-shadow 150ms ease;
+}
+
+.input-wrap input::placeholder {
+  color: #9aa9be;
+  opacity: 1;
+}
+
+.input-wrap input:focus {
+  border-color: #f0a000;
+  box-shadow: 0 0 0 3px rgb(247 160 0 / 15%);
+}
+
+.input-wrap input[type="password"],
+.input-wrap input[type="text"]:has(+ .password-toggle) {
+  padding-right: 42px;
+}
+
+.password-toggle {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  display: grid;
+  width: 24px;
+  height: 24px;
+  padding: 2px;
+  transform: translateY(-50%);
+  place-items: center;
+  border: 0;
+  background: transparent;
+  color: #95a4b9;
+  cursor: pointer;
+}
+
+.password-toggle svg {
+  width: 18px;
+  height: 18px;
+}
+
+.password-toggle:focus-visible,
+.auth-footer a:focus-visible,
+.form-link-row a:focus-visible {
+  outline: 2px solid #e99300;
+  outline-offset: 3px;
+}
+
+.submit-button {
+  min-height: 40px;
+  margin-top: 10px;
+  border: 0;
+  border-radius: 7px;
+  background: var(--color-accent);
+  color: #141414;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    background-color 150ms ease,
+    transform 150ms ease;
+}
+
+.submit-button:hover:not(:disabled) {
+  background: var(--color-accent-hover);
+}
+
+.submit-button:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.submit-button:focus-visible {
+  outline: 3px solid rgb(247 160 0 / 40%);
+  outline-offset: 3px;
+}
+
+.submit-button:disabled {
+  cursor: wait;
+  opacity: 0.7;
+}
+
+.form-link-row {
+  margin-top: -4px;
+  text-align: center;
+  font-size: 12px;
+}
+
+.form-link-row a,
+.auth-footer a {
+  color: #e98500;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.form-link-row a:hover,
+.auth-footer a:hover {
+  text-decoration: underline;
+}
+
+.auth-footer {
+  margin-top: 26px;
+  padding-top: 24px;
+  border-top: 1px solid #e7ebf1;
+  color: var(--color-muted);
+  text-align: center;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.auth-footer a {
+  margin-left: 4px;
+}
+
+.form-feedback {
+  margin: -4px 0 0;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.form-feedback--error {
+  color: var(--color-error);
+}
+
+.form-feedback--success {
+  color: #247245;
+}
+
+.register-card {
+  padding-top: 34px;
+  padding-bottom: 30px;
+}
+
+.register-card .auth-header {
+  margin-bottom: 22px;
+}
+
+.register-card .auth-form {
+  gap: 13px;
+}
+
+.register-card .auth-footer {
+  margin-top: 14px;
+  padding-top: 0;
+  border-top: 0;
+}
+
+.recovery-card {
+  min-height: 418px;
+  padding-top: 43px;
+}
+
+.recovery-card .auth-form {
+  gap: 18px;
+}
+
+.recovery-card .submit-button {
+  margin-top: 10px;
+}
+
+@media (max-width: 480px) {
+  .auth-page {
+    padding: 20px 16px;
+  }
+
+  .auth-card {
+    padding: 34px 26px 30px;
+  }
+
+  .register-card {
+    padding-top: 28px;
+  }
+
+  .recovery-card {
+    min-height: 0;
+  }
+}

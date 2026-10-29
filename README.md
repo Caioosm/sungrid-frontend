@@ -1,16 +1,43 @@
-# React + Vite
+# SunGrid Front-end
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Aplicação React com Vite para as telas de autenticação do SunGrid.
 
-Currently, two official plugins are available:
+## Executar localmente
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+```bash
+npm install
+npm run dev
+```
 
-## React Compiler
+Rotas disponíveis:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- `/login` — entrar
+- `/cadastro` — criar conta
+- `/recuperar-senha` — solicitar redefinição de senha
 
-## Expanding the Oxlint configuration
+## Integração com a API
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+Copie `.env.example` para `.env` e informe a URL base do backend:
+
+```env
+VITE_API_BASE_URL=http://localhost:3000/api
+```
+
+As chamadas ficam centralizadas em `src/services/apiClient.js` e
+`src/services/authService.js`. A implementação espera estes endpoints:
+
+- `POST /auth/login` com `{ "email": "...", "password": "..." }`
+- `POST /auth/register` com `{ "name": "...", "email": "...", "password": "..." }`
+- `POST /auth/forgot-password` com `{ "email": "..." }`
+
+O backend pode retornar JSON com uma propriedade `message` para mensagens de
+erro. Ajuste os caminhos e os contratos em `src/services/authService.js` quando
+a API estiver definida. Sem `VITE_API_BASE_URL`, os formulários mostram uma
+mensagem explícita de configuração pendente em vez de simular sucesso.
+
+## Verificações
+
+```bash
+npm run lint
+npm run build
+```
