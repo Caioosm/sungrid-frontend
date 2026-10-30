@@ -1,44 +1,54 @@
-import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
+import { lazy, Suspense } from 'react'
 import {
   BrowserRouter,
   Navigate,
   Route,
   Routes,
-  useLocation,
 } from 'react-router-dom'
 import LoginPage from './pages/LoginPage.jsx'
 import RegisterPage from './pages/RegisterPage.jsx'
 import ForgotPasswordPage from './pages/ForgotPasswordPage.jsx'
+import DashboardLayout from './components/dashboard/DashboardLayout.jsx'
+import DashboardPlaceholderPage from './pages/DashboardPlaceholderPage.jsx'
 
-function AnimatedRoutes() {
-  const location = useLocation()
-  const reduceMotion = useReducedMotion()
-
-  return (
-    <AnimatePresence mode="wait" initial={false}>
-      <motion.div
-        className="route-transition"
-        key={location.pathname}
-        initial={reduceMotion ? false : { opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={reduceMotion ? { opacity: 1 } : { opacity: 0, y: -8 }}
-        transition={{ duration: reduceMotion ? 0 : 0.22, ease: 'easeOut' }}
-      >
-        <Routes location={location}>
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/cadastro" element={<RegisterPage />} />
-          <Route path="/recuperar-senha" element={<ForgotPasswordPage />} />
-          <Route path="*" element={<Navigate to="/login" replace />} />
-        </Routes>
-      </motion.div>
-    </AnimatePresence>
-  )
-}
+const DashboardPage = lazy(() => import('./pages/DashboardPage.jsx'))
 
 function App() {
   return (
     <BrowserRouter>
-      <AnimatedRoutes />
+      <Routes>
+        <Route element={<DashboardLayout />}>
+          <Route
+            path="/dashboard"
+            element={
+              <Suspense
+                fallback={
+                  <div className="dashboard-loading" role="status">
+                    Carregando dados do dashboard...
+                  </div>
+                }
+              >
+                <DashboardPage />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/consumo-diario"
+            element={<DashboardPlaceholderPage />}
+          />
+          <Route
+            path="/consumo-mensal"
+            element={<DashboardPlaceholderPage />}
+          />
+          <Route path="/alertas" element={<DashboardPlaceholderPage />} />
+          <Route path="/ativos" element={<DashboardPlaceholderPage />} />
+        </Route>
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/cadastro" element={<RegisterPage />} />
+        <Route path="/recuperar-senha" element={<ForgotPasswordPage />} />
+        <Route path="/" element={<Navigate to="/dashboard" replace />} />
+        <Route path="*" element={<Navigate to="/dashboard" replace />} />
+      </Routes>
     </BrowserRouter>
   )
 }
