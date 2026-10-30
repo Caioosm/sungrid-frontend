@@ -1,11 +1,12 @@
 const apiBaseUrl = import.meta.env.VITE_API_BASE_URL?.replace(/\/+$/, '')
 
+export function isApiConfigured() {
+  return Boolean(apiBaseUrl)
+}
+
 export async function apiRequest(path, { body, ...options } = {}) {
-  if (!apiBaseUrl) {
-    throw new Error(
-      'Erro' + Error
-      // 'A API ainda não foi configurada. Defina VITE_API_BASE_URL no arquivo .env.',
-    )
+  if (!isApiConfigured()) {
+    throw new Error('Defina VITE_API_BASE_URL para conectar a API.')
   }
 
   const response = await fetch(`${apiBaseUrl}${path}`, {
@@ -23,7 +24,13 @@ export async function apiRequest(path, { body, ...options } = {}) {
   if (responseText) {
     try {
       payload = JSON.parse(responseText)
-    } catch {
+    } catch (parseError) {
+      if (response.ok) {
+        throw new Error('A API retornou uma resposta que não é JSON válido.', {
+          cause: parseError,
+        })
+      }
+
       payload = { message: responseText }
     }
   }

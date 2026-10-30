@@ -1,3 +1,4 @@
+import { motion, useReducedMotion } from 'motion/react'
 import '../styles/auth.css'
 import { Link } from 'react-router-dom'
 
@@ -26,9 +27,22 @@ function AuthLayout({
   className = '',
   backLink,
 }) {
+  const reduceMotion = useReducedMotion()
+
   return (
     <main className="auth-page">
-      <section className={`auth-card ${className}`.trim()}>
+      <motion.section
+        className={`auth-card ${className}`.trim()}
+        initial={reduceMotion ? false : { y: 7 }}
+        animate={{ y: 0 }}
+        layout
+        transition={{
+          layout: reduceMotion
+            ? { duration: 0 }
+            : { type: 'spring', stiffness: 260, damping: 30 },
+          y: { duration: reduceMotion ? 0 : 0.24, ease: 'easeOut' },
+        }}
+      >
         {backLink && (
           <Link className="auth-back" to={backLink} aria-label="Voltar para login">
             <ArrowLeftIcon />
@@ -46,7 +60,7 @@ function AuthLayout({
         </header>
         {children}
         {footer && <footer className="auth-footer">{footer}</footer>}
-      </section>
+      </motion.section>
     </main>
   )
 }
