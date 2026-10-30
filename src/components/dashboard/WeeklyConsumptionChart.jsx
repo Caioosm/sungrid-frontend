@@ -34,7 +34,7 @@ const valueLabelsPlugin = {
 
     ctx.save()
     ctx.fillStyle = '#253044'
-    ctx.font = '600 10px Roboto, Arial, sans-serif'
+    ctx.font = '600 12px Roboto, Arial, sans-serif'
     ctx.textAlign = 'center'
     ctx.textBaseline = 'bottom'
 
@@ -107,6 +107,13 @@ function WeeklyConsumptionChart({ data }) {
         padding: 11,
         displayColors: true,
         usePointStyle: true,
+        titleFont: {
+          size: 13,
+          weight: '700',
+        },
+        bodyFont: {
+          size: 12,
+        },
         callbacks: {
           label(context) {
             return ` ${context.dataset.label}: ${context.formattedValue} kWh`
@@ -126,7 +133,7 @@ function WeeklyConsumptionChart({ data }) {
         ticks: {
           color: '#8391a7',
           font: {
-            size: 10,
+            size: 12,
           },
           padding: 8,
         },
@@ -145,7 +152,7 @@ function WeeklyConsumptionChart({ data }) {
         ticks: {
           color: '#8391a7',
           font: {
-            size: 10,
+            size: 12,
           },
           padding: 10,
           callback(value) {
