@@ -8,10 +8,6 @@
     linear-gradient(110deg, #fff8eb 0%, #ffdda0 44%, #ffb34e 100%);
 }
 
-.route-transition {
-  min-height: 100vh;
-}
-
 .auth-card {
   position: relative;
   width: min(100%, 382px);
@@ -361,34 +357,6 @@
 
 .recovery-card .submit-button {
   margin-top: 10px;
-}
-
-.field-group .form-field {
-  animation: field-in 240ms ease both;
-}
-
-.field-group .form-field:nth-child(2) {
-  animation-delay: 35ms;
-}
-
-.field-group .form-field:nth-child(3) {
-  animation-delay: 70ms;
-}
-
-.field-group .form-field:nth-child(4) {
-  animation-delay: 105ms;
-}
-
-@keyframes field-in {
-  from {
-    opacity: 0;
-    transform: translateY(5px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 
 @keyframes feedback-in {
