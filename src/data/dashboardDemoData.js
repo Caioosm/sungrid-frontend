@@ -52,6 +52,44 @@ export const dashboardDemoSummary = {
   },
 }
 
+export const dashboardDemoDailyConsumption = {
+  date: '2026-10-31',
+  hourly: {
+    labels: ['00h', '04h', '08h', '12h', '14h', '16h', '20h', '23h'],
+    generationKw: [5, 3, 12, 45, 42, 28, 8, 4],
+    consumptionKw: [4, 5, 8, 11, 14, 15, 12, 7],
+  },
+  peakSolarTime: '12h30',
+  metrics: [
+    {
+      id: 'peak-consumption',
+      label: 'Pico Consumo',
+      value: '45.2 kW',
+      caption: 'Registrado às 12:45',
+    },
+    {
+      id: 'daily-average',
+      label: 'Média Diária',
+      value: '18.4 kW',
+      caption: 'Dentro da meta de economia',
+      tone: 'positive',
+    },
+    {
+      id: 'accumulated-total',
+      label: 'Total Acumulado',
+      value: '441.6 kWh',
+      caption: 'Ciclo de 24h fechado',
+    },
+    {
+      id: 'peak-hours',
+      label: 'Horário de Pico',
+      value: '12h - 14h',
+      caption: 'Janela de maior irradiação',
+      tone: 'accent',
+    },
+  ],
+}
+
 export const dashboardDemoNotifications = [
   {
     id: 'demo-inverter-alert',

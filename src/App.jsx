@@ -12,6 +12,9 @@ import DashboardLayout from './components/dashboard/DashboardLayout.jsx'
 import DashboardPlaceholderPage from './pages/DashboardPlaceholderPage.jsx'
 
 const DashboardPage = lazy(() => import('./pages/DashboardPage.jsx'))
+const DailyConsumptionPage = lazy(
+  () => import('./pages/DailyConsumptionPage.jsx'),
+)
 
 function App() {
   return (
@@ -34,7 +37,17 @@ function App() {
           />
           <Route
             path="/consumo-diario"
-            element={<DashboardPlaceholderPage />}
+            element={
+              <Suspense
+                fallback={
+                  <div className="dashboard-loading" role="status">
+                    Carregando consumo diário...
+                  </div>
+                }
+              >
+                <DailyConsumptionPage />
+              </Suspense>
+            }
           />
           <Route
             path="/consumo-mensal"

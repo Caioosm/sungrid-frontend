@@ -79,7 +79,7 @@ function DashboardLayout() {
 
   const titleByPath = {
     '/dashboard': 'Dashboard Principal',
-    '/consumo-diario': 'Consumo Diário',
+    '/consumo-diario': 'Análise de Consumo Diário',
     '/consumo-mensal': 'Consumo Mensal',
     '/alertas': 'Gerenciamento de Alertas',
     '/ativos': 'Acompanhamento de Ativo',
