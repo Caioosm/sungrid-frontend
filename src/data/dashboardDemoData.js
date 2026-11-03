@@ -90,6 +90,77 @@ export const dashboardDemoDailyConsumption = {
   ],
 }
 
+export const dashboardDemoMonthlyConsumption = {
+  periodLabel: 'Agosto 2026',
+  monthlyConsumption: {
+    days: Array.from({ length: 30 }, (_, index) => String(index + 1)),
+    dailyKwh: [
+      37, 37, 34, 33, 43, 46, 44, 40, 38, 41, 45, 47, 49, 51, 44, 40, 41, 44,
+      45, 42, 40, 39, 44, 46, 50, 51, 43, 41, 45, 44,
+    ],
+  },
+  metrics: [
+    {
+      id: 'monthly-accumulated',
+      label: 'Total Acumulado',
+      value: '1.284 kWh',
+      trend: '−8.2% em relação ao período anterior',
+      trendDirection: 'positive',
+      icon: 'sun',
+      tone: 'green',
+    },
+    {
+      id: 'monthly-daily-average',
+      label: 'Média Diária',
+      value: '42.8 kWh',
+      trend: '+2.1% da média de consumo esperada',
+      trendDirection: 'warning',
+      icon: 'activity',
+      tone: 'yellow',
+    },
+    {
+      id: 'previous-period-comparison',
+      label: 'Comparação Anterior',
+      value: '−8.2%',
+      trend: 'Redução significativa vs Julho',
+      trendDirection: 'positive',
+      icon: 'battery',
+      tone: 'green',
+    },
+    {
+      id: 'monthly-projection',
+      label: 'Projeção do Mês',
+      value: '1.350 kWh',
+      trend: 'Estimado dentro do limite contratual',
+      trendDirection: 'positive',
+      icon: 'activity',
+      tone: 'green',
+    },
+  ],
+  comparison: {
+    title: 'Agosto vs Julho (Consumo Comparativo)',
+    current: {
+      label: 'Agosto (Mês Atual)',
+      value: '1.284 kWh',
+      barPercentage: 76,
+    },
+    previous: {
+      label: 'Julho (Mês Anterior)',
+      value: '1.398 kWh',
+      barPercentage: 84,
+    },
+    description:
+      'Seu perfil de consumo este mês apresentou uma redução média de 8.2% devido à otimização no pico solar das 12h às 14h.',
+  },
+  estimatedSavings: {
+    title: 'Economia Estimada por Autogeração',
+    description:
+      'Ao priorizar o funcionamento de máquinas industriais no período de pico solar, você alcançou maior independência da rede.',
+    totalReduction: '−114 kWh',
+    estimatedFinancial: 'R$ 412,80',
+  },
+}
+
 export const dashboardDemoNotifications = [
   {
     id: 'demo-inverter-alert',

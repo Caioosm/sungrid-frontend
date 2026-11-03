@@ -2,6 +2,7 @@ import { apiRequest, isApiConfigured } from './apiClient.js'
 import {
   dashboardDemoAssets,
   dashboardDemoDailyConsumption,
+  dashboardDemoMonthlyConsumption,
   dashboardDemoNotifications,
   dashboardDemoSummary,
 } from '../data/dashboardDemoData.js'
@@ -31,6 +32,14 @@ export const dashboardService = {
     }
 
     return apiRequest(`/consumption/daily?date=${encodeURIComponent(date)}`)
+  },
+
+  getMonthlyConsumption(month = getLocalDate().slice(0, 7)) {
+    if (!isApiConfigured()) {
+      return Promise.resolve(dashboardDemoMonthlyConsumption)
+    }
+
+    return apiRequest(`/consumption/monthly?month=${encodeURIComponent(month)}`)
   },
 
   getNotifications() {

@@ -15,6 +15,9 @@ const DashboardPage = lazy(() => import('./pages/DashboardPage.jsx'))
 const DailyConsumptionPage = lazy(
   () => import('./pages/DailyConsumptionPage.jsx'),
 )
+const MonthlyConsumptionPage = lazy(
+  () => import('./pages/MonthlyConsumptionPage.jsx'),
+)
 
 function App() {
   return (
@@ -51,7 +54,17 @@ function App() {
           />
           <Route
             path="/consumo-mensal"
-            element={<DashboardPlaceholderPage />}
+            element={
+              <Suspense
+                fallback={
+                  <div className="dashboard-loading" role="status">
+                    Carregando consumo mensal...
+                  </div>
+                }
+              >
+                <MonthlyConsumptionPage />
+              </Suspense>
+            }
           />
           <Route path="/alertas" element={<DashboardPlaceholderPage />} />
           <Route path="/ativos" element={<DashboardPlaceholderPage />} />
