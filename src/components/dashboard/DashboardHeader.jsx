@@ -3,6 +3,13 @@ import { Link } from 'react-router-dom'
 import { dashboardService } from '../../services/dashboardService.js'
 import DashboardIcon from './DashboardIcons.jsx'
 
+const assetStatusLabels = {
+  operando: 'Operacional',
+  alerta: 'Atenção',
+  offline: 'Offline',
+  manutencao: 'Em manutenção',
+}
+
 function DashboardHeader({ title, user }) {
   const [query, setQuery] = useState('')
   const [assets, setAssets] = useState([])
@@ -72,16 +79,26 @@ function DashboardHeader({ title, user }) {
               ) : assets.length > 0 ? (
                 assets.map((asset) => (
                   <li key={asset.id}>
-                    <span>{asset.name}</span>
-                    <span
-                      className={
-                        asset.status === 'Operacional'
-                          ? 'asset-search-status asset-search-status--ok'
-                          : 'asset-search-status asset-search-status--warning'
-                      }
+                    <Link
+                      className="asset-search-result"
+                      to={`/ativos?asset=${encodeURIComponent(asset.id)}`}
+                      onClick={() => {
+                        setQuery('')
+                        setAssets([])
+                      }}
                     >
-                      {asset.status}
-                    </span>
+                      <span>{asset.name}</span>
+                      <span
+                        className={
+                          asset.status === 'operando' ||
+                          asset.status === 'Operacional'
+                            ? 'asset-search-status asset-search-status--ok'
+                            : 'asset-search-status asset-search-status--warning'
+                        }
+                      >
+                        {assetStatusLabels[asset.status] ?? asset.status}
+                      </span>
+                    </Link>
                   </li>
                 ))
               ) : (

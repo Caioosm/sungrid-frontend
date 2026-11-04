@@ -171,9 +171,129 @@ export const dashboardDemoNotifications = [
   },
 ]
 
-export const dashboardDemoAssets = [
-  { id: 'INV-01', name: 'Inversor INV-01', status: 'Operacional' },
-  { id: 'INV-02', name: 'Inversor INV-02', status: 'Atenção' },
-  { id: 'BAT-01', name: 'Bateria BAT-01', status: 'Operacional' },
-  { id: 'SNS-01', name: 'Sensor SNS-01', status: 'Operacional' },
+export const dashboardDemoAlerts = [
+  {
+    id: 1,
+    status: 'ativo',
+    createdAt: '2026-08-14T16:15:00-03:00',
+    description: 'Consumo acima do limite operacional definido',
+    priority: 'alta',
+  },
+  {
+    id: 2,
+    status: 'ativo',
+    createdAt: '2026-08-14T15:40:00-03:00',
+    description: 'Inversor IS-2400 indicando temperatura elevada',
+    priority: 'alta',
+  },
+  {
+    id: 3,
+    status: 'resolvido',
+    createdAt: '2026-08-14T11:22:00-03:00',
+    description: 'Sensor offline - reconexão bem-sucedida',
+    priority: 'media',
+  },
+  {
+    id: 4,
+    status: 'ativo',
+    createdAt: '2026-08-14T08:05:00-03:00',
+    description: 'Pico de tensão detectado na fase B',
+    priority: 'alta',
+  },
+  {
+    id: 5,
+    status: 'resolvido',
+    createdAt: '2026-08-13T17:30:00-03:00',
+    description: 'Manutenção programada concluída com sucesso',
+    priority: 'baixa',
+  },
+  {
+    id: 6,
+    status: 'resolvido',
+    createdAt: '2026-08-13T09:12:00-03:00',
+    description: 'Bateria com carga baixa - carga estabilizada',
+    priority: 'media',
+  },
+  {
+    id: 7,
+    status: 'ativo',
+    createdAt: '2026-08-12T14:00:00-03:00',
+    description: 'Falha de comunicação no barramento CAN',
+    priority: 'media',
+  },
 ]
+
+export const dashboardDemoAssets = [
+  { id: 1, code: 'INV-2400-SG', name: 'Inversor Solar IS-2400', status: 'operando' },
+  { id: 2, code: 'INV-01', name: 'Inversor INV-01', status: 'operando' },
+  { id: 3, code: 'INV-02', name: 'Inversor INV-02', status: 'alerta' },
+  { id: 4, code: 'BAT-01', name: 'Bateria BAT-01', status: 'operando' },
+  { id: 5, code: 'SNS-01', name: 'Sensor SNS-01', status: 'operando' },
+]
+
+export const dashboardDemoAssetOverview = {
+  asset: {
+    id: 1,
+    code: 'INV-2400-SG',
+    name: 'Inversor Solar IS-2400',
+    type: 'inversor',
+    manufacturer: 'SunTech Inc.',
+    status: 'operando',
+  },
+  metrics: [
+    {
+      id: 'current-power',
+      label: 'Consumo Atual',
+      value: '3.2 kW',
+      caption: 'Geração de energia estável',
+      tone: 'positive',
+      icon: 'sun',
+    },
+    {
+      id: 'temperature',
+      label: 'Temperatura',
+      value: '42°C',
+      caption: 'Temperatura normal de operação',
+      tone: 'positive',
+      icon: 'activity',
+    },
+    {
+      id: 'voltage',
+      label: 'Tensão',
+      value: '220V',
+      caption: 'Variação de +/- 1.2% da rede',
+      tone: 'positive',
+      icon: 'activity',
+    },
+    {
+      id: 'current',
+      label: 'Corrente',
+      value: '14.5A',
+      caption: 'Carga em conformidade',
+      tone: 'positive',
+      icon: 'activity',
+    },
+    {
+      id: 'efficiency',
+      label: 'Eficiência',
+      value: '96.8%',
+      caption: 'Excelente índice de conversão',
+      tone: 'positive',
+      icon: 'sun',
+    },
+    {
+      id: 'operating-hours',
+      label: 'Horas de Operação',
+      value: '4.328h',
+      caption: 'Próxima manutenção em 672h',
+      tone: 'warning',
+      icon: 'activity',
+    },
+  ],
+  history: {
+    title: 'Histórico de Consumo do Ativo (7 dias)',
+    description: 'Análise semanal da potência gerada por este inversor específico',
+    labels: ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
+    generatedPowerKw: [3.8, 2.7, 5.4, 4.7, 5.8, 3.4, 4.4],
+  },
+}

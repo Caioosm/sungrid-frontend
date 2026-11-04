@@ -6,7 +6,7 @@ export function isApiConfigured() {
 
 export async function apiRequest(path, { body, ...options } = {}) {
   if (!isApiConfigured()) {
-    throw new Error('Defina VITE_API_BASE_URL para conectar a API.')
+    throw new Error('Erro Inesperado.')
   }
 
   const response = await fetch(`${apiBaseUrl}${path}`, {

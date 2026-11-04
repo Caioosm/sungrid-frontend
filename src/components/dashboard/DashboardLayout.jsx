@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { motion, useReducedMotion } from 'motion/react'
 import { Outlet, useLocation } from 'react-router-dom'
 import Alert from '../ui/alert.jsx'
@@ -13,7 +13,6 @@ function DashboardLayout() {
   const [notifications, setNotifications] = useState([])
   const [summaryError, setSummaryError] = useState('')
   const [notificationError, setNotificationError] = useState('')
-  const dismissedNotificationIds = useRef(new Set())
   const location = useLocation()
   const reduceMotion = useReducedMotion()
 
@@ -46,12 +45,7 @@ function DashboardLayout() {
       try {
         const nextNotifications = await dashboardService.getNotifications()
         if (active) {
-          setNotifications(
-            nextNotifications.filter(
-              (notification) =>
-                !dismissedNotificationIds.current.has(notification.id),
-            ),
-          )
+          setNotifications(nextNotifications)
           setNotificationError('')
         }
       } catch (requestError) {
@@ -86,13 +80,6 @@ function DashboardLayout() {
   }
   const title = titleByPath[location.pathname] ?? 'Dashboard Principal'
 
-  function dismissNotification(notificationId) {
-    dismissedNotificationIds.current.add(notificationId)
-    setNotifications((current) =>
-      current.filter((notification) => notification.id !== notificationId),
-    )
-  }
-
   return (
     <div className="dashboard-shell">
       <Sidebar
@@ -101,7 +88,6 @@ function DashboardLayout() {
         )?.value}
         carbonFootprint={summary?.carbonFootprint}
         notifications={notifications}
-        onDismissNotification={dismissNotification}
       />
       <div className="dashboard-workspace">
         <DashboardHeader

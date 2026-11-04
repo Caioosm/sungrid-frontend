@@ -9,7 +9,6 @@ import LoginPage from './pages/LoginPage.jsx'
 import RegisterPage from './pages/RegisterPage.jsx'
 import ForgotPasswordPage from './pages/ForgotPasswordPage.jsx'
 import DashboardLayout from './components/dashboard/DashboardLayout.jsx'
-import DashboardPlaceholderPage from './pages/DashboardPlaceholderPage.jsx'
 
 const DashboardPage = lazy(() => import('./pages/DashboardPage.jsx'))
 const DailyConsumptionPage = lazy(
@@ -17,6 +16,10 @@ const DailyConsumptionPage = lazy(
 )
 const MonthlyConsumptionPage = lazy(
   () => import('./pages/MonthlyConsumptionPage.jsx'),
+)
+const AlertsPage = lazy(() => import('./pages/AlertsPage.jsx'))
+const AssetTrackingPage = lazy(
+  () => import('./pages/AssetTrackingPage.jsx'),
 )
 
 function App() {
@@ -66,8 +69,34 @@ function App() {
               </Suspense>
             }
           />
-          <Route path="/alertas" element={<DashboardPlaceholderPage />} />
-          <Route path="/ativos" element={<DashboardPlaceholderPage />} />
+          <Route
+            path="/alertas"
+            element={
+              <Suspense
+                fallback={
+                  <div className="dashboard-loading" role="status">
+                    Carregando alertas...
+                  </div>
+                }
+              >
+                <AlertsPage />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/ativos"
+            element={
+              <Suspense
+                fallback={
+                  <div className="dashboard-loading" role="status">
+                    Carregando acompanhamento do ativo...
+                  </div>
+                }
+              >
+                <AssetTrackingPage />
+              </Suspense>
+            }
+          />
         </Route>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/cadastro" element={<RegisterPage />} />
